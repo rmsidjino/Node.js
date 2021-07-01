@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            function popup(message){
+                location.href = "/manager/search?car_id="+message;
+            }
+            function manager(){
+                location.href = "/manager";
+            }
+        </script>
+    </head>
+        <body>
+            <table border ="1">
+                <tr>
+                    <th>차량번호</th>
+                    <th>차량소속</th>
+                    <th>차량종류</th>
+                    <th>차량연식</th>
+                    <th>차량검사일</th>
+                    <th>차량검사결과</th>
+                </tr>
+                <% for (i in car){ %>
+                <tr onclick="popup('<%=car[i].car_id%>')">
+                    <td><%=car[i].car_id%></td>
+                    <td><%=car[i].car_div%></td>
+                    <td><%=car[i].car_type%></td>
+                    <td><%=car[i].car_birth%></td>
+                    <td><%=car[i].car_day%></td>
+                    <td><%=car[i].car_result%></td>
+                </tr>
+                <% } %>
+            </table>
+        </body>
+        <button type ="button" onclick="manager()">manager</button>
+</html>

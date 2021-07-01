@@ -13,9 +13,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 var main = require('./routes/main');
 app.use('/', main);
 
-var manager = require('./routes/manager');
-app.use('/manager', manager);
-
 var server = app.listen(port,function(){
     console.log("Express Run")
 })

@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script>
+            function login(){
+                location.href ="/login";
+            }; 
+        </script>
         <title>Sign Page</title>
     </head>
     <body>
@@ -11,6 +16,7 @@
             <input type ="text" name ="division" placeholder="DIVISION">
             <input type ="number" name ="linkcode" placeholder="LINKCODE">
             <input type ="submit" value='signup'>
+            <button type = "button" onclick = "login()">login</button>
         </form>
     </body>
 

@@ -18,6 +18,34 @@ router.get('/signup',function(req, res){
     res.render('signup');
 })
 
+router.post('/login',function(req, res){
+    var post_id = req.body.post_id;
+    var password = req.body.password;
+    connection.query(
+        `select * from user_list where post_id = ? and password = ?`,
+        [post_id, password],
+        function(err,result){
+            if(err){
+                console.log(err);
+                res.send("SQL login connection Error");
+            }else{
+                if(result.length> 0){
+                    if(result[0].linkcode == 1){
+                        res.redirect("/manager");
+                    }else{
+                        if(result[0].linkcode == 0){
+                        res.send("User");
+                        }
+                    }
+                }else{
+                    res.send("Not data");
+                }
+            }
+        }
+    )
+
+})
+
 router.post('/signup_1',function(req, res){
     var post_id =req.body.post_id;
     var name =req.body.name;
@@ -54,7 +82,6 @@ router.post('/signup_1',function(req, res){
 
             }
     )
-    res.render('signup');
 })
 
 

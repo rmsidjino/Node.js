@@ -1,9 +1,20 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script>
+            function signup(){
+                location.href ="/signup";
+            }; 
+        </script>
         <title>Login Page</title>
     </head>
     <body>
-        <h>Login !</h>
+        <form action ="/login" method ='POST'>
+            <input type = 'text' placeholder="ID" name ="post_id">
+            <input type = 'text' placeholder="PASSWORD" name ="password">
+            <input type = 'submit' name ="action" value="login"> 
+            <button type = "button" onclick="signup()">signup</button>
+        </form>
+            
     </body>
 </html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            function popup(message){
+                location.href = "/search?No="+message;
+            }
+            function add_article(){
+                location.href = "/add_article";
+            }
+        </script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    </head>
+        <body>
+            <table class='table'>
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>내용</th>
+                    </tr>
+                </thead>
+                <% for (i in article){ %>
+                <tr onclick="popup('<%=article[i].No%>')">
+                    <td><%=article[i].No%></td>
+                    <td><%=article[i].title%></td>
+                    <td><%=article[i].content%></td>
+                </tr>
+                <% } %>
+            </table>
+            <div class="text-center">
+                <ul class="pagination">
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                </ul>
+            </div>
+        </body>
+        <button type="button" onclick="add_article()">글 추가하기</button>
+</html>
