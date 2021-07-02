@@ -2,11 +2,14 @@
 <html>
     <head>
         <script>
-            function popup(message){
-                location.href = "/search?No="+message;
-            }
             function add_article(){
                 location.href = "/add_article";
+            }
+            function del(message){
+                location.href = "/delete?No="+message;
+            }
+            function edit(message){
+                location.href = "/edit?No="+message;
             }
         </script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -14,21 +17,36 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     </head>
         <body>
+            
             <table class='table'>
                 <thead>
                     <tr>
                         <th>번호</th>
                         <th>제목</th>
                         <th>내용</th>
+                        <th>이미지</th>
+                        <th>날짜</th>
                     </tr>
                 </thead>
+                <% if (article.length ==0){%>
+                    <td colspan="3">해당 게시판에 게시글이 없습니다.</td>
+                <%}else{%>
                 <% for (i in article){ %>
-                <tr onclick="popup('<%=article[i].No%>')">
+                <tr>
                     <td><%=article[i].No%></td>
                     <td><%=article[i].title%></td>
                     <td><%=article[i].content%></td>
+                    <td>
+                        <img src="<%=article[i].image%>" width="20">
+                    </td><%=article[i].today%>
+                    <td></td>
+                    <button type= "button" onclick="del('<%=article[i].No%>')">지우기</button> 
+                    <button type= "button" onclick="edit('<%=article[i].No%>')">수정하기</button>
+                    </td>
                 </tr>
                 <% } %>
+                <% } %>
+
             </table>
             <div class="text-center">
                 <ul class="pagination">
@@ -40,4 +58,5 @@
             </div>
         </body>
         <button type="button" onclick="add_article()">글 추가하기</button>
+
 </html>
