@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        <script>
+            function move(){
+                location.href ="/third";
+            };
+            function popup(){
+                alert("test");
+            };
+        </script>
     </head>
         <body>
             <ul>
-                <li>ㅇㅇ</li>
-                <li>ㅋㅋ</li>
+                <li><%=id%></li>
+                <li><%=password%></li>
             </ul>
             <button onclick="move()">이동</button>
             <button onclick="popup()">popup</button>

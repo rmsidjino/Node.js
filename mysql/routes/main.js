@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql2');
+var secretKey ="dfgfdgfdgfdgfd";
+var Crypto = require("crypto")
 
 var connection = mysql.createConnection({
     host     : 'localhost', //127.0.0.1
@@ -21,9 +23,11 @@ router.get('/signup',function(req, res){
 router.post('/login',function(req, res){
     var post_id = req.body.post_id;
     var password = req.body.password;
+    var crypto = Crypto.createHmac('sha256', secretKey).update(password).digest('hex');
+    console.log(crypto);
     connection.query(
         `select * from user_list where post_id = ? and password = ?`,
-        [post_id, password],
+        [post_id, crypto],
         function(err,result){
             if(err){
                 console.log(err);
@@ -50,9 +54,10 @@ router.post('/signup_1',function(req, res){
     var post_id =req.body.post_id;
     var name =req.body.name;
     var password =req.body.password;
+    var crypto = Crypto.createHmac('sha256', secretKey).update(password).digest('hex');
     var division =req.body.division;
     var linkcode =req.body.linkcode;
-    console.log(post_id, name, password, division, linkcode);
+    console.log(post_id, name, crypto, division, linkcode);
     connection.query(
         `select * from user_list where post_id =?`,
         [post_id],
@@ -67,7 +72,7 @@ router.post('/signup_1',function(req, res){
                     connection.query(
                         `insert into user_list (post_id, password, name,
                             division, linkcode) values (?, ?, ?, ?, ?)`,
-                            [post_id, password, name, division, linkcode],
+                            [post_id, crypto, name, division, linkcode],
                             function(err2, result2){
                                 if(err2){
                                     console.log(err2);

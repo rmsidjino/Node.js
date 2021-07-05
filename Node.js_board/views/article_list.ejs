@@ -3,19 +3,23 @@
     <head>
         <script>
             function add_article(){
-                location.href = "/add_article";
+                location.href = "/board/add_article";
             }
             function del(message){
-                location.href = "/delete?No="+message;
+                location.href = "/board/delete?No="+message;
             }
             function edit(message){
-                location.href = "/edit?No="+message;
+                location.href = "/board/edit?No="+message;
+            }
+            function logout(){
+                location.href = "/logout";
             }
         </script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     </head>
+    <button type="button" onclick="logout()">logout</button>
         <body>
             
             <table class='table'>
@@ -23,26 +27,37 @@
                     <tr>
                         <th>번호</th>
                         <th>제목</th>
-                        <th>내용</th>
+                        <th>작성자</th>
                         <th>이미지</th>
                         <th>날짜</th>
+                        <th>시간</th>
+                        <th>지우기/수정하기</th>
                     </tr>
                 </thead>
-                <% if (article.length ==0){%>
-                    <td colspan="3">해당 게시판에 게시글이 없습니다.</td>
+                <% if (article ==0){%>
+                    <td colspan="7">해당 게시판에 게시글이 없습니다.</td>
                 <%}else{%>
                 <% for (i in article){ %>
                 <tr>
                     <td><%=article[i].No%></td>
                     <td><%=article[i].title%></td>
-                    <td><%=article[i].content%></td>
+                    <td><%=article[i].author%></td>
                     <td>
                         <img src="<%=article[i].image%>" width="20">
-                    </td><%=article[i].today%>
-                    <td></td>
-                    <button type= "button" onclick="del('<%=article[i].No%>')">지우기</button> 
-                    <button type= "button" onclick="edit('<%=article[i].No%>')">수정하기</button>
                     </td>
+                    <td>
+                        <%=article[i].date%>
+                    </td>
+                    <td>
+                        <%=article[i].time%>
+                        
+                    </td>
+                    <td>
+                    <button type= "button" onclick="del('<%=article[i].No%>')">지우기</button> 
+                    <% if (session.post_id == article[i].author){%>
+                    <button type= "button" onclick="edit('<%=article[i].No%>')">수정하기</button>
+                    <%}%>
+                </td>
                 </tr>
                 <% } %>
                 <% } %>

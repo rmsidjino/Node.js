@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html>
+    <script>
+        function logout(){
+            location.href="/logout";
+        }
+    </script>
+    <button type="button" onclick="logout()">logout</button>
     <body>
-        <form action="/add_article2" method="POST">
+        <form action="/board/add_article2" method="POST">
             <input type="text" placeholder="번호" name="No">
             <input type="text" placeholder="제목" name="title">
             <input type="text" placeholder="내용" name="content">
