@@ -4,11 +4,11 @@ var mysql = require('mysql2');
 var moment = require('moment');
 
 var connection = mysql.createConnection({
-    host     : 'localhost', //127.0.0.1
-    port     : 3306,
-    user     : 'root',
-    password : '1234',
-    database : 'test'
+    host     : process.env.host, //127.0.0.1
+    port     : process.env.port,
+    user     : process.env.user,
+    password : process.env.password,
+    database : process.env.database
   });
 
 
@@ -50,7 +50,9 @@ router.get("/", function(req, res){
                 console.log(result.length);
                 if(err){
                     console.log(err);
-                    res.send("board connection Error");
+                    res.render("error",{
+                        message : 'board connection Error'
+                    });
                 }else{
                     res.render("article_list", {article : result, session : req.session.logged});
                 }
@@ -68,7 +70,9 @@ router.get("/detail", function(req, res){
         function(err,result){
             if(err){
                 console.log(err);
-                res.send("board connection Error");
+                res.render("error",{
+                    message : 'board connection Error'
+                });
             }else{
                 res.render("search", {article : result});
             }
@@ -92,7 +96,9 @@ router.get('/delete',function(req, res){
                         function(err,result){
                             if(err){
                                 console.log(err);
-                                res.send("board connection Error");
+                                res.render("error",{
+                                    message : 'board connection Error'
+                                });
                             }else{
                                 res.redirect("/board");
                             }
@@ -117,7 +123,9 @@ router.get('/edit',function(req, res){
             function(err,result){
                 if(err){
                     console.log(err);
-                    res.send("board connection Error");
+                    res.render("error",{
+                        message : 'board connection Error'
+                    });
                 }else{
                     res.render("edit",{article : result})
                 }
@@ -141,7 +149,9 @@ router.post('/edit/:No',function(req, res){
             function(err,result){
                 if(err){
                     console.log(err);
-                    res.send("board connection Error");
+                    res.render("error",{
+                        message : 'board connection Error'
+                    });
                 }else{
                     res.redirect("/board");
                 }

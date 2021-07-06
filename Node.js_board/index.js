@@ -3,6 +3,7 @@ var path = require("path");
 var session = require("express-session");
 var app = express();
 var port = 3000;
+require('dotenv').config();
 
 app.set("views", path.join( __dirname , "views") );
 app.set("view engine",'ejs');
@@ -13,7 +14,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(
     session({
-        secret: "gangnam",
+        secret: process.env.session_secret,
         resave : false,
         saveUninitialized : true,
         maxAge : 36000000
