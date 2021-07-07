@@ -34,8 +34,8 @@ router.post('/index',function(req, res){
             }else{
                 if(result.length> 0){
                     req.session.logged = result[0];
-                    console.log(req.session.logged)
-                    res.redirect("/board")
+                    console.log(req.session.logged);
+                    res.redirect("/board");
                 }else{
                     res.render("error2",{
                         message : '아이디나 비밀번호가 맞지 않습니다'
@@ -58,8 +58,8 @@ router.post('/signup2',function(req, res){
     var name =req.body.name;
     var password =req.body.password;
     var crypto = Crypto.createHmac('sha256', secretKey).update(password).digest('hex');
-    var division ='0';
-    var linkcode ='0';
+    var division =req.body.division;
+    var linkcode =req.body.linkcode;
     console.log(post_id, name, crypto, division, linkcode);
     connection.query(
         `select * from user_list where post_id =?`,

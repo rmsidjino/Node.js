@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<% extend('header') %>
 <html>
     <head>
         <script>
@@ -11,15 +11,11 @@
             function edit(message){
                 location.href = "/board/edit?No="+message;
             }
-            function logout(){
-                location.href = "/logout";
-            }
         </script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     </head>
-    <button type="button" onclick="logout()">logout</button>
         <body>
             
             <table class='table'>
@@ -71,7 +67,9 @@
                     <li><a href="#">4</a></li>
                 </ul>
             </div>
+            <button type="button" onclick="add_article()">글 추가하기</button>
+                
         </body>
-        <button type="button" onclick="add_article()">글 추가하기</button>
-
+        <%- include('./nav.ejs') %>
+        
 </html>

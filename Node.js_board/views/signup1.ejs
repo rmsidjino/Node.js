@@ -5,6 +5,9 @@
       function signup(){
           location.href ="/signup2";
       }; 
+      function signin(){
+          location.href ="/";
+      }; 
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
@@ -72,19 +75,19 @@
 <main class="form-signin">
   <form action = "/signup2" method = "POST">
     <img class="mb-4" src="./css/image/bootstrap-logo.svg" alt="" width="72" height="57">
-    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    <h1 class="h3 mb-3 fw-normal">회원가입을 해주세요</h1>
 
     <div class="form-floating">
       <input type="text" class="form-control" id="input_id" name="post_id" placeholder="name@example.com">
-      <label for="floatingInput">Email address</label>
+      <label for="input_id">ID</label>
     </div>
     <div class="form-floating">
       <input type="password" class="form-control" id="input_password" name="password" placeholder="Password">
-      <label for="floatingPassword">Password</label>
+      <label for="input_password">Password</label>
     </div>
     <div class="form-floating">
         <input type="password" class="form-control" id="input_confirm" placeholder="Conform_Password">
-        <label for="floatingConformPassword">Confirm Password</label>
+        <label for="input_confirm">Confirm Password</label>
       </div>
     <div class="alert alert-success" id="success">
         비밀번호가 일치합니다.
@@ -93,16 +96,30 @@
         비밀번호가 다릅니다.
       </div>
     <div class="form-floating">
-        <input type="password" class="form-control" id="input_name" name="name" placeholder="Name">
-        <label for="floatingName">Name</label>
+        <input type="text" class="form-control" id="input_name" name="name" placeholder="Name">
+        <label for="input_name">Name</label>
     </div>
-
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
+    <div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="linkcode" id="exampleRadios1" value="0" checked>
+      <label class="form-check-label" for="exampleRadios1">
+        일반사용자
       </label>
     </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="linkcode" id="exampleRadios2" value="1">
+      <label class="form-check-label" for="exampleRadios2">
+        관리자
+      </label>
+    </div>
+    </div>
+    <select class="form-select" aria-label="Default select example" name="division">
+      <option selected>Select_division</option>
+      <option value="1">Naver</option>
+      <option value="2">Kakao</option>
+      <option value="3">Google</option>
+    </select>
+    <button class="w-100 btn btn-lg btn-primary" type="button" onclick="signin()">Sign in으로 돌아가기</button>
     <button style="margin-top:10px;" id = "signup" class="w-100 btn btn-lg btn-primary" type="submit" onclick="signup()">Sign up</button>
   </form>
     <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>

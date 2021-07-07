@@ -7,6 +7,7 @@ require('dotenv').config();
 
 app.set("views", path.join( __dirname , "views") );
 app.set("view engine",'ejs');
+app.engine('ejs', require('express-ejs-extend'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended : false}));

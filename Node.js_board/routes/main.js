@@ -11,12 +11,15 @@ var connection = mysql.createConnection({
     database : process.env.database
   });
 
+router.get("/header",function(req,res){
+    res.render("header",{name : "none"});
+})
 
 router.get("/add_article", function(req, res, next){
     if (!req.session.logged){ //log in 확인
         res.redirect("/");
     }else{
-        res.render("add_article");
+        res.render("add_article1");
     }
 })
 
@@ -24,8 +27,7 @@ router.post('/add_article2',function(req, res){
     if (!req.session.logged){ //log in 확인
         res.redirect("/");
     }else{
-        var No =req.body
-        .No;
+        var No =req.body.No;
         var title =req.body.title;
         var content =req.body.content;
         var image =req.body.image;
@@ -47,7 +49,6 @@ router.get("/", function(req, res){
         connection.query(
             `select * from board`,
             function(err,result){
-                console.log(result.length);
                 if(err){
                     console.log(err);
                     res.render("error",{
@@ -127,7 +128,7 @@ router.get('/edit',function(req, res){
                         message : 'board connection Error'
                     });
                 }else{
-                    res.render("edit",{article : result})
+                    res.render("edit1",{article : result})
                 }
             }
         )
