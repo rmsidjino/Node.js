@@ -11,6 +11,9 @@
             function edit(message){
                 location.href = "/board/edit?No="+message;
             }
+            function popup(message){
+                location.href = "/board/info?No="+message;
+            }
         </script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -34,7 +37,7 @@
                     <td colspan="7">해당 게시판에 게시글이 없습니다.</td>
                 <%}else{%>
                 <% for (i in article){ %>
-                <tr>
+                <tr onclick="popup('<%=article[i].No%>')">
                     <td><%=article[i].No%></td>
                     <td><%=article[i].title%></td>
                     <td><%=article[i].author%></td>

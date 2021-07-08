@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            function board_list(){
+                location.href ="/board";
+            }; 
+            function comment_del(parent_num,No){
+                location.href ="/board/comment_del/"+parent_num+"/" +No;
+            }
+            function like_hate(No, parent_num, up_down, state){
+                location.href ="/board/comment_like_hate?up_down="+up_down+"&parent_num="+parent_num+"&No="+No+"&state=" + state;
+            }
+
+        </script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    </head>
+        <body>
+            <table class='table'>
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>이미지</th>
+                        <th>내용</th>
+                        <th>날짜</th>
+                        <th>시간</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td><%=article[0].No%></td>
+                    <td><%=article[0].title%></td>
+                    <td><%=article[0].author%></td>
+                    <td>
+                        <img src="<%=article[0].image%>" width="20">
+                    </td>
+                    <td>
+                        <%=article[0].content%>
+                    </td>
+                    <td>
+                        <%=article[0].date%>
+                    </td>
+                    <td>
+                        <%=article[0].time%>
+                        
+                    </td>
+                    <td>
+                </td>
+                </tr>
+
+            </table>
+            <table class ="table" >
+                <thead>
+                    <tr>
+                        <th style="width :15%">작성자</th>
+                        <th>내용</th>
+                        <th>날짜</th>
+                        <th>시간</th>
+                        <th>삭제</th>
+                    </tr>
+                </thead>
+                <% for (i in comment){ %>
+                    <tr>
+                        <th style="width :15%">
+                            <%=comment[i].name%>
+                        </th>
+                        <td>
+                            <%=comment[i].opinion%>        
+                        </td>
+                        <td>
+                            <%=comment[i].date.toString().substring(0,4)%>.<%=comment[i].date.toString().substring(5,7)%>.<%=comment[i].date.toString().substring(8,10)%>
+                        </td>
+                        <td>
+                            <%=comment[i].time%>
+                        </td>
+                        <td>
+                            <div>
+                                <img class="mb-4" src="../css/image/like.png" onclick="like_hate('<%=comment[i].No%>','<%=comment[i].parent_num%>','<%=comment[i].up%>','like')" width="30" height="30"><%=comment[i].up%>
+                                <img class="mb-4" src="../css/image/hate.png" onclick="like_hate('<%=comment[i].No%>','<%=comment[i].parent_num%>','<%=comment[i].down%>','hate')" width="30" height="30"><%=comment[i].down%>
+                            </div>
+                        </td>
+                        <td>
+                            <button type ="button" class="btn btn-danger" onclick="comment_del('<%=comment[i].parent_num%>','<%=comment[i].No%>')">
+                        </td>
+                    </tr>
+                <%}%>
+            </table>
+            <td colspan="2">
+                <form action="/board/add_comment" method ="POST">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="comment">댓글</span>
+                        <input type="hidden" name ="No" value="<%=article[0].No%>">
+                        <input type="text" name ="comment" class="form-control" placeholder="댓글을 적으세요" aria-label="Username" aria-describedby="basic-addon1">
+                        <input type="submit" value ="댓글 추가"> 
+
+                    </div>
+                </form>
+            </td>
+
+            <button type="button" onclick="board_list()">목록</button>
+        </body>
+</html>

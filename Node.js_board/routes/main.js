@@ -62,9 +62,8 @@ router.get("/", function(req, res){
     }
 })
 
-router.get("/detail", function(req, res){
+router.get("/info", function(req, res){
     var No = req.query.No;
-    console.log(No);
     connection.query(
         `select * from board where No = ?`,
         [No],
@@ -75,7 +74,25 @@ router.get("/detail", function(req, res){
                     message : 'board connection Error'
                 });
             }else{
-                res.render("search", {article : result});
+                connection.query(
+                    `select * from comment where parent_num = ?`,
+                    [No],
+                    function(err,result1){
+                        if(err){
+                            console.log(err);
+                            res.render("error",{
+                                message : '댓글 실패'
+                            });
+                        }else{
+                            res.render("info", {
+                                article : result,
+                                post_id : req.session.logged.post_id,
+                                name : req.session.logged.name,
+                                comment : result1
+                            });
+                        }
+                    }
+                )    
             }
         }
     )
@@ -159,6 +176,93 @@ router.post('/edit/:No',function(req, res){
             }
         )
     }
+})
+
+router.post("/add_comment",function(req, res, next){
+    var No =req.body.No;
+    var comment =req.body.comment;
+    var post_id =req.session.logged.post_id;
+    var name =req.session.logged.name;
+    var date = moment().format('YYYY-MM-DD');
+    var time = moment().format('HH:MM:SS');
+    var comment =req.body.comment;
+    console.log(No,comment,post_id,name,date,time,comment);
+    connection.query(
+        `insert into comment (parent_num, opinion, post_id, name, date, time) values (?, ?, ?, ?, ?, ?)`,
+            [No, comment, post_id, name, date, time],
+            function(err,result){
+                if(err){
+                    console.log(err);
+                    res.render("error",{
+                        message : '댓글 추가 실패'
+                    });
+                }else{
+                    res.redirect("/board/info?No="+No);
+                }
+            }
+            );
+
+})
+
+router.get("/comment_del/:parent_num/:No",function(req, res){
+    var parent_num =req.params.parent_num;
+    var No =req.params.No;
+    console.log(parent_num,No);
+    connection.query(
+        `delete from comment where No = ?`,        
+        [No],
+        function(err,result){
+            if(err){
+                console.log(err);
+                res.render("error",{
+                    message : 'board connection Error'
+                });
+            }else{
+                res.redirect("/board/info?No="+parent_num);
+            }
+        }
+    )    
+})
+
+router.get("/comment_like_hate",function(req,res,next){
+    var No = req.query.No;
+    var parent_num = req.query.parent_num;
+    var up_down = parseInt(req.query.up_down) + 1;
+    var state = req.query.state;
+    console.log(No, parent_num,up_down);
+    if(state=="like"){
+        connection.query(
+            `update comment set up=? where No =?`,        
+            [up_down, No],
+            function(err,result){
+                if(err){
+                    console.log(err);
+                    res.render("error",{
+                        message : 'board connection Error'
+                    });
+                }else{
+                    console.log("%%%%%%%%")
+                    res.redirect("/board/info?No="+parent_num);
+                }
+            }
+        )
+    }else{
+        connection.query(
+            `update comment set down=? where No =?`,        
+            [up_down, No],
+            function(err,result){
+                if(err){
+                    console.log(err);
+                    res.render("error",{
+                        message : 'board connection Error'
+                    });
+                }else{
+                    console.log("%%%%%%%%")
+                    res.redirect("/board/info?No="+parent_num);
+                }
+            }
+        )
+    }   
 })
 
 module.exports=router;
