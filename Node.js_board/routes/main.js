@@ -55,10 +55,23 @@ router.get("/", function(req, res){
                         message : 'board connection Error'
                     });
                 }else{
-                    res.render("article_list", {article : result, session : req.session.logged});
+                    connection.query(
+                        `select *,(select count(*) from comment where comment.parent_num=board.No) as cnt from board`,
+                        function(err,result1){
+                            console.log(result1);
+                            if(err){
+                                console.log(err);
+                                res.render("error",{
+                                    message : 'board connection Error'
+                                });
+                            }else{
+                                res.render("article_list", {article : result, session : req.session.logged, comment_num : result1});
+                            }
+                        }
+                    )
                 }
             }
-        )
+        )  
     }
 })
 
@@ -200,7 +213,7 @@ router.post("/add_comment",function(req, res, next){
                     res.redirect("/board/info?No="+No);
                 }
             }
-            );
+    );
 
 })
 
@@ -241,7 +254,6 @@ router.get("/comment_like_hate",function(req,res,next){
                         message : 'board connection Error'
                     });
                 }else{
-                    console.log("%%%%%%%%")
                     res.redirect("/board/info?No="+parent_num);
                 }
             }

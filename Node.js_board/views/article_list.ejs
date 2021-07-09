@@ -39,13 +39,13 @@
                 <% for (i in article){ %>
                 <tr onclick="popup('<%=article[i].No%>')">
                     <td><%=article[i].No%></td>
-                    <td><%=article[i].title%></td>
+                    <td width="100"><%=article[i].title%>(<%=comment_num[i].cnt%>)</td>
                     <td><%=article[i].author%></td>
                     <td>
                         <img src="<%=article[i].image%>" width="20">
                     </td>
                     <td>
-                        <%=article[i].date%>
+                        <%=article[i].date.toString().substring(4,15)%>
                     </td>
                     <td>
                         <%=article[i].time%>

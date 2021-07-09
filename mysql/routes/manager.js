@@ -27,7 +27,16 @@ router.post('/add_car2',function(req, res){
     connection.query(
         `insert into car_list (car_id, car_div, car_type,
               car_birth) values (?, ?, ?, ?)`,
-            [car_id, car_div, car_type, car_birth])
+            [car_id, car_div, car_type, car_birth],
+            function(err,result){
+                if(err){
+                    console.log(err);
+                    res.send("car_list connection Error");
+                }else{
+                    res.redirect("car_list");
+                }
+            }
+    )
 })
 
 router.get("/car_list", function(req, res){
