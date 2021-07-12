@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <style>
+            div{
+                border: 2px blue solid;
+                margin: 2px;
+                padding: 2px;
+
+            }
+            p{
+                background: yellow;
+                margin: 2px;
+                padding: 2px;
+            }   
+            strong{
+                color: red;
+            }
+            .try{
+                background-color:green;
+            }
+        </style>
+    </head>      
+    <body>
+        <span class='test'>Span Text</span>
+        <strong>What about me</strong>
+        <script>$("span.test").wrap("<div><div><p><em><b></b></em></p></div></div>");</script>
+        <div><div><p><em><b><span>Span Text</span></b></em></p></div></div>
+        <span class="try">Span Text</span>
+
+</html>

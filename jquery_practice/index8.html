@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <style>
+            p{
+                margin: 6px 0;
+                font-weight: bolder;
+                cursor: pointer;
+            }
+            .blue{
+                color: blue;
+            }   
+            .highlight{
+                background: yellow;
+            }
+        </style>
+    </head>      
+    <body>
+        <p class="blue"> Click to toggle</p>
+        <p class="blue highlight"> highlight</p>
+        <p class="blue"> on these</p>
+        
+        <script>
+            $("p").click(function(){
+                $(this).toggleClass("highlight");
+            });
+        </script>
+    </body>
+</html>

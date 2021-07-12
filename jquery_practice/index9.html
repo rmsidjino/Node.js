@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <style>
+            p{
+                margin: 6px 0;
+
+            }
+        </style>
+    </head>      
+    <body>
+        <input type="text" value="some text" placeholder="some text"/>
+        <p>
+
+        </p>
+        <script>
+            $("input").keyup(function(){ //keyup은 입력이 끝났을 때를 뜻함
+                var value = $(this).val();
+                $("p").text(value);
+                //alert(value)
+            }).keyup();
+        </script>
+    </body>
+</html>
