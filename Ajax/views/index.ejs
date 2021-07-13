@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script>
+            function Ajax(){
+                $.ajax({
+                    url : "/ajax", //클라이언트가 HTTP요청을 보낼 서버의 주소
+                    data : { 
+                        name : "nike",
+                        phone : "0104234232",
+                        division : "manager"
+                    },
+                    method : "GET",  
+                    datatype : "json"
+                })
+                .done(function(json){ //HTTP 요청이 성공하면 데이터가 done() 메소드로 전달
+                    $("<h1>").text(json.name).appendTo("body"); //json.key값 = value 값 추출
+                    $("<div>").html(json.html).appendTo("body"); //태그를 넣을 것이다
+                }) 
+                .fail(function(xhr, status, error){ //HTTP 요청이 실패하면 오류와 상태에 관한 정보가 전달
+                    $("#text").html("오류가 발생했다.<br>")
+                    .append("오류명: " + error + "<br>")
+                    .append("상태 :" + status);
+                })
+                .always(function(xhr, status){ //요청이 완전히 완료됐을때 메세지 표시
+                    $("#text").html("요청이 완료되었습니다!");
+                });
+            }
+
+            function Ajax_post(){
+                $.ajax({
+                    url : "/ajax", //클라이언트가 HTTP요청을 보낼 서버의 주소
+                    data : { 
+                        message : "ajax post 연습"
+                    },
+                    method : "POST",  
+                    datatype : "json"
+                })
+                .done(function(json){ //HTTP 요청이 성공하면 데이터가 done() 메소드로 전달
+                    $("<b>").html(json.message).appendTo("body"); //json.key값 = value 값 추출
+                }) 
+                .fail(function(xhr, status, error){ //HTTP 요청이 실패하면 오류와 상태에 관한 정보가 전달
+                    $("#text").html("오류가 발생했다.<br>")
+                    .append("오류명: " + error + "<br>")
+                    .append("상태 :" + status);
+                })
+                .always(function(xhr, status){ //요청이 완전히 완료됐을때 메세지 표시
+                    $("#text").html("요청이 완료되었습니다!");
+                });
+            }
+
+            function get(){
+                $.get("/ajax_get",
+                {
+                    name : "nike",
+                    phone : "0104234232",
+                    division : "manager" 
+                },
+                function(data, status){
+                    $("#text").html(data + "<br>" + status);
+                })
+            }
+
+            function post(){
+                $.post("/ajax_post",
+                {
+                    message : "ajax post 연습" 
+                },
+                function(data, status){
+                    $("#text").html(data + "<br>" + status);
+                })
+            }
+
+            function getJSON(){
+                var tem = $("#tem").val()
+                $.getJSON("/ajax_getJSON",
+                {
+                    "tem" : tem 
+                },
+                function(data){
+                    $("#text").html(data.state);
+                })
+            }
+        </script>
+    </head>
+    <body>
+        <button onclick="Ajax()">Ajax Test</button>     
+        <button onclick="Ajax_post()">Ajax_post Test</button> 
+        <button onclick="get()">get_test</button> 
+        <button onclick="post()">post_test</button>
+        <input type ="number" id="tem" placeholder="온도"/>
+        <button onclick="getJSON()">getjson_test</button>
+
+        <p id ="text"></p>   
+    </body>
+</html>
