@@ -1,0 +1,66 @@
+<% extend('header') %>
+<html>
+    <head>
+        <script>
+            function add_article(){
+                location.href = "/board/add_article";
+            }
+            function del(message){
+                location.href = "/board/delete?No="+message;
+            }
+            function edit(message){
+                location.href = "/board/edit?No="+message;
+            }
+            function popup(message){
+                location.href = "/board/info?No="+message;
+            }
+        </script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    </head>
+        <body>
+            
+            <table class='table'>
+                <thead>
+                    <tr>
+                        <th>DEMAND_ID</th>
+                        <th>PRODUCT_ID</th>
+                        <th>CUSTOMER_ID</th>
+                        <th>DUE_DATE</th>
+                        <th>DEMAND_QTY</th>
+                    </tr>
+                </thead>
+                <% if (demand ==0){%>
+                    <td colspan="7">해당 게시판에 게시글이 없습니다.</td>
+                <%}else{%>
+                <% for (i in demand){ %>
+                <tr onclick="popup('<%=demand[i].DEMAND_ID%>')">
+                    <td><%=demand[i].DEMAND_ID%></td>
+                    <td width="100"><%=demand[i].PRODUCT_ID%></td>
+                    <td><%=demand[i].CUSTOMER_ID%></td>
+                    <td>
+                        <%=demand[i].DUE_DATE%>
+                    </td>
+                    <td>
+                        <%=demand[i].DEMAND_QTY%>                       
+                    </td>
+                </tr>
+                <% } %>
+                <% } %>
+
+            </table>
+            <div class="text-center">
+                <ul class="pagination">
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                </ul>
+            </div>
+            <button type="button" onclick="add_article()">글 추가하기</button>
+                
+        </body>
+        <%- include('./nav.ejs') %>
+        
+</html>

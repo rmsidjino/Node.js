@@ -1,0 +1,66 @@
+<% extend('header') %>
+<html>
+    <head>
+        <script>
+            function add_article(){
+                location.href = "/board/add_article";
+            }
+            function del(message){
+                location.href = "/board/delete?No="+message;
+            }
+            function edit(message){
+                location.href = "/board/edit?No="+message;
+            }
+            function popup(message){
+                location.href = "/board/info?No="+message;
+            }
+        </script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    </head>
+        <body>
+            
+            <table class='table'>
+                <thead>
+                    <tr>
+                        <th>SITE_ID</th>
+                        <th>LINE_ID</th>
+                        <th>EQP_ID</th>
+                        <th>EQP_GROUP</th>
+                        <th>PRESSET_ID</th>
+                    </tr>
+                </thead>
+                <% if (equipment ==0){%>
+                    <td colspan="7">해당 게시판에 게시글이 없습니다.</td>
+                <%}else{%>
+                <% for (i in equipment){ %>
+                <tr onclick="popup('<%=equipment[i].SITE_ID%>')">
+                    <td><%=equipment[i].SITE_ID%></td>
+                    <td width="100"><%=equipment[i].LINE_ID%></td>
+                    <td><%=equipment[i].EQP_ID%></td>
+                    <td>
+                        <%=equipment[i].DUE_DATE%>
+                    </td>
+                    <td>
+                        <%=equipment[i].PRESSET_ID%>                       
+                    </td>
+                </tr>
+                <% } %>
+                <% } %>
+
+            </table>
+            <div class="text-center">
+                <ul class="pagination">
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                </ul>
+            </div>
+            <button type="button" onclick="add_article()">글 추가하기</button>
+                
+        </body>
+        <%- include('./nav.ejs') %>
+        
+</html>

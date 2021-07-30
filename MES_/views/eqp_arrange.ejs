@@ -1,0 +1,70 @@
+<% extend('header') %>
+<html>
+    <head>
+        <script>
+            function add_article(){
+                location.href = "/board/add_article";
+            }
+            function del(message){
+                location.href = "/board/delete?No="+message;
+            }
+            function edit(message){
+                location.href = "/board/edit?No="+message;
+            }
+            function popup(message){
+                location.href = "/board/info?No="+message;
+            }
+        </script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    </head>
+        <body>
+            <div>
+            
+            <table class='table' width="80%">
+                <thead>
+                    <tr>
+                        <th>PRODUCT_ID</th>
+                        <th>STEP_ID</th>
+                        <th>EQP_ID</th>
+                        <th>TACT_TIME</th>
+                        <th>PROC_TIME</th>
+                    </tr>
+                </thead>
+                <% if (eqp_arrange ==0){%>
+                    <td colspan="7">해당 게시판에 게시글이 없습니다.</td>
+                <%}else{%>
+                <% for (i in eqp_arrange){ %>
+                <tr onclick="popup('<%=eqp_arrange[i].PRODUCT_ID%>')">
+                    <td width="100"><%=eqp_arrange[i].PRODUCT_ID%></td>
+                    <td width="100"><%=eqp_arrange[i].STEP_ID%></td>
+                    <td width="100">
+                        <%=eqp_arrange[i].EQP_ID%>
+                    </td>
+                    <td width="100">
+                        <%=eqp_arrange[i].TACT_TIME%>                       
+                    </td>
+                    <td width="100">
+                        <%=eqp_arrange[i].PROC_TIME%>                       
+                    </td>
+                </tr>
+                <% } %>
+                <% } %>
+
+            </table>
+        </div>
+            <div class="text-center">
+                <ul class="pagination">
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                </ul>
+            </div>
+            <button type="button" onclick="add_article()">글 추가하기</button>
+                
+        </body>
+        <%- include('./nav.ejs') %>
+        
+</html>
